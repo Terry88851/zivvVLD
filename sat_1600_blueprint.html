@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1600 SAT Blueprint</title>
+<style>
+  :root{
+    --bg:#f7f8fc; --card:#fff; --text:#172033; --muted:#68738a;
+    --primary:#5b5ce2; --primary2:#7b61ff; --line:#e6e8f0;
+    --green:#18864b; --shadow:0 18px 50px rgba(32,38,70,.10);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+       background:var(--bg);color:var(--text);line-height:1.6}
+  a{text-decoration:none;color:inherit}
+  .nav{position:sticky;top:0;z-index:10;background:rgba(247,248,252,.88);backdrop-filter:blur(14px);
+       border-bottom:1px solid var(--line)}
+  .nav-inner{max-width:1120px;margin:auto;padding:15px 24px;display:flex;align-items:center;justify-content:space-between}
+  .logo{font-weight:900;font-size:20px;letter-spacing:-.6px}.logo span{color:var(--primary)}
+  .navlinks{display:flex;gap:22px;font-size:14px;font-weight:700;color:var(--muted)}
+  .navlinks a:hover{color:var(--primary)}
+  .hero{max-width:1120px;margin:0 auto;padding:82px 24px 70px;display:grid;grid-template-columns:1.15fr .85fr;gap:55px;align-items:center}
+  .eyebrow{display:inline-flex;padding:7px 12px;border-radius:999px;background:#ececff;color:#4c4dc5;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.7px}
+  h1{font-size:clamp(44px,7vw,78px);line-height:.98;letter-spacing:-4px;margin:18px 0}
+  .gradient{background:linear-gradient(90deg,var(--primary),var(--primary2));-webkit-background-clip:text;color:transparent}
+  .hero p{font-size:18px;color:var(--muted);max-width:650px}
+  .buttons{display:flex;gap:12px;margin-top:27px;flex-wrap:wrap}
+  .btn{padding:13px 18px;border-radius:12px;font-weight:800;border:1px solid var(--line);background:white}
+  .btn.primary{background:var(--primary);color:white;border-color:var(--primary)}
+  .btn:hover{transform:translateY(-1px)}
+  .score-card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:30px;box-shadow:var(--shadow)}
+  .score-top{display:flex;justify-content:space-between;align-items:center}
+  .score{font-size:68px;font-weight:950;letter-spacing:-4px}.outof{color:var(--muted);font-weight:700}
+  .bar{height:10px;background:#eceef5;border-radius:99px;overflow:hidden;margin:14px 0 24px}
+  .fill{height:100%;width:100%;background:linear-gradient(90deg,var(--primary),var(--primary2))}
+  .mini{display:grid;grid-template-columns:1fr 1fr;gap:12px}.mini div{background:#f7f7fc;border-radius:14px;padding:14px}
+  .mini b{display:block;font-size:20px}.mini span{font-size:12px;color:var(--muted)}
+  section{max-width:1120px;margin:auto;padding:72px 24px}
+  .section-head{max-width:700px;margin-bottom:30px}.section-head h2{font-size:40px;line-height:1.05;letter-spacing:-2px;margin:7px 0 12px}
+  .section-head p{color:var(--muted)}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px}
+  .num{width:38px;height:38px;display:grid;place-items:center;border-radius:11px;background:#ededff;color:var(--primary);font-weight:900}
+  .card h3{margin:17px 0 7px}.card p{color:var(--muted);font-size:14px}
+  .plan{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .week{background:#171b2d;color:white;border-radius:18px;padding:22px}
+  .week small{color:#b8bfd3;font-weight:800}.week h3{margin:9px 0}.week ul{padding-left:18px;color:#dce0eb;font-size:14px}
+  .checklist{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .check{display:flex;gap:12px;background:white;border:1px solid var(--line);padding:16px;border-radius:14px}
+  .check input{accent-color:var(--primary);width:18px;height:18px;margin-top:3px}.check label{font-weight:700}
+  .mistakes{background:#111527;color:white;border-radius:24px;padding:34px}
+  .mistakes h2{margin-top:0}.mistakes p{color:#bfc5d7}
+  .mistake-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .mistake{padding:17px;border:1px solid #2d3349;border-radius:14px}.mistake b{display:block;margin-bottom:4px}
+  .cta{text-align:center;background:linear-gradient(135deg,#ececff,#f5f0ff);border-radius:26px;padding:55px 24px}
+  .cta h2{font-size:42px;letter-spacing:-2px;margin:0 0 10px}
+  .cta p{color:var(--muted);max-width:620px;margin:0 auto 23px}
+  footer{max-width:1120px;margin:auto;padding:30px 24px 50px;color:var(--muted);font-size:13px;text-align:center}
+  @media(max-width:800px){.hero{grid-template-columns:1fr;padding-top:55px}.grid,.plan{grid-template-columns:1fr 1fr}.navlinks{display:none}}
+  @media(max-width:520px){.grid,.plan,.checklist,.mistake-grid{grid-template-columns:1fr}h1{letter-spacing:-2.5px}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="logo">SAT<span>1600</span> Blueprint</div>
+    <div class="navlinks">
+      <a href="#strategy">Strategy</a><a href="#plan">8-Week Plan</a><a href="#mistakes">Mistakes</a><a href="#checklist">Checklist</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div>
+    <span class="eyebrow">The 1600 roadmap</span>
+    <h1>Build your path to a <span class="gradient">1600.</span></h1>
+    <p>A practical guide to mastering Digital SAT Reading & Writing and Math. The goal isn't to study everything—it’s to eliminate the mistakes that keep you from the top score.</p>
+    <div class="buttons">
+      <a class="btn primary" href="#plan">See the 8-week plan →</a>
+      <a class="btn" href="#strategy">Learn the strategy</a>
+    </div>
+  </div>
+  <div class="score-card">
+    <div class="score-top"><span class="outof">Target score</span><span>Digital SAT</span></div>
+    <div class="score">1600</div>
+    <div class="bar"><div class="fill"></div></div>
+    <div class="mini">
+      <div><b>800</b><span>Reading & Writing</span></div>
+      <div><b>800</b><span>Math</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="strategy">
+  <div class="section-head">
+    <span class="eyebrow">01 · Strategy</span>
+    <h2>Think like a 1600 scorer.</h2>
+    <p>At the top end, random practice is inefficient. Use a loop: diagnose → learn → drill → review → retest.</p>
+  </div>
+  <div class="grid">
+    <article class="card"><div class="num">1</div><h3>Take a diagnostic</h3><p>Start with a full, timed practice test. Record every wrong answer and every question you guessed on.</p></article>
+    <article class="card"><div class="num">2</div><h3>Build an error log</h3><p>Classify mistakes: concept gap, careless error, timing, misread, vocabulary, or answer-choice trap.</p></article>
+    <article class="card"><div class="num">3</div><h3>Target weaknesses</h3><p>Spend most of your study time on recurring weaknesses rather than topics you already know.</p></article>
+    <article class="card"><div class="num">4</div><h3>Drill precisely</h3><p>Do short sets focused on one skill. Accuracy first; speed comes after the method becomes automatic.</p></article>
+    <article class="card"><div class="num">5</div><h3>Review deeply</h3><p>For every mistake, explain why the correct answer works and why your choice fails.</p></article>
+    <article class="card"><div class="num">6</div><h3>Retest</h3><p>Return to the same skill later. A weakness isn't fixed until you can solve it consistently under time pressure.</p></article>
+  </div>
+</section>
+
+<section id="plan">
+  <div class="section-head">
+    <span class="eyebrow">02 · 8 weeks</span>
+    <h2>A simple weekly progression.</h2>
+    <p>Adjust the workload to your schedule. Consistent, focused practice beats exhausting study sessions.</p>
+  </div>
+  <div class="plan">
+    <article class="week"><small>WEEK 1–2</small><h3>Diagnose</h3><ul><li>Take a full test</li><li>Analyze every miss</li><li>List top 5 weaknesses</li></ul></article>
+    <article class="week"><small>WEEK 3–4</small><h3>Repair</h3><ul><li>Review core concepts</li><li>Skill-based drills</li><li>Build your error log</li></ul></article>
+    <article class="week"><small>WEEK 5–6</small><h3>Accelerate</h3><ul><li>Timed mixed sets</li><li>Practice harder questions</li><li>Reduce careless errors</li></ul></article>
+    <article class="week"><small>WEEK 7–8</small><h3>Polish</h3><ul><li>Full timed tests</li><li>Analyze score patterns</li><li>Protect accuracy</li></ul></article>
+  </div>
+</section>
+
+<section id="checklist">
+  <div class="section-head">
+    <span class="eyebrow">03 · Daily system</span>
+    <h2>Your study session, simplified.</h2>
+    <p>Use the checklist to turn each session into measurable progress.</p>
+  </div>
+  <div class="checklist">
+    <div class="check"><input type="checkbox" id="c1"><label for="c1">10–15 min: review your error log</label></div>
+    <div class="check"><input type="checkbox" id="c2"><label for="c2">25–40 min: targeted skill practice</label></div>
+    <div class="check"><input type="checkbox" id="c3"><label for="c3">15–25 min: timed questions</label></div>
+    <div class="check"><input type="checkbox" id="c4"><label for="c4">10 min: explain every mistake</label></div>
+    <div class="check"><input type="checkbox" id="c5"><label for="c5">Update your recurring-mistake list</label></div>
+    <div class="check"><input type="checkbox" id="c6"><label for="c6">Write one action for tomorrow</label></div>
+  </div>
+</section>
+
+<section id="mistakes">
+  <div class="mistakes">
+    <h2>What usually separates “high” from “1600”?</h2>
+    <p>When your score is already strong, the biggest gains often come from consistency—not simply learning more content.</p>
+    <div class="mistake-grid">
+      <div class="mistake"><b>Careless errors</b><span>Slow down on the final step and verify what the question actually asks.</span></div>
+      <div class="mistake"><b>Unreviewed practice</b><span>A completed question set has little value if you never study why you missed questions.</span></div>
+      <div class="mistake"><b>Timing panic</b><span>Use timed mini-sets before jumping into full tests.</span></div>
+      <div class="mistake"><b>Weak fundamentals</b><span>Fix the underlying rule or concept instead of memorizing one question.</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="cta">
+    <h2>1600 is a process, not a trick.</h2>
+    <p>Set a baseline, find the patterns in your mistakes, and make each practice session solve a specific problem.</p>
+    <a class="btn primary" href="#strategy">Start the blueprint ↑</a>
+  </div>
+</section>
+
+<footer>
+  SAT® is a trademark of the College Board, which is not affiliated with and does not endorse this website. Use official College Board materials for the most current test information.
+</footer>
+</body>
+</html>
